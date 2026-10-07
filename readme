@@ -1,0 +1,50 @@
+# 📄 AI Resume ATS Analyzer
+
+Upload a resume (PDF, DOCX or TXT) and get:
+
+- An overall **ATS score** (0-100)
+- Section-by-section scores
+- Prioritised, actionable **improvements** with example rewrites
+- Keywords found / missing (optionally matched against a job description)
+- Formatting issues and strengths
+- A downloadable report
+
+Built with **Streamlit** and **Google Gemini Flash**.
+
+## Run locally
+
+```bash
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Get a free API key at https://aistudio.google.com/apikey, then either:
+
+- paste it into the app's sidebar, **or**
+- set an environment variable: `export GEMINI_API_KEY="your-key"` (Windows PowerShell: `$env:GEMINI_API_KEY="your-key"`), **or**
+- create `.streamlit/secrets.toml` containing `GEMINI_API_KEY = "your-key"` (never commit this file).
+
+```bash
+streamlit run app.py
+```
+
+## Deploy on Streamlit Community Cloud
+
+1. Push this repo to GitHub (public or private).
+2. Go to https://share.streamlit.io and sign in with GitHub.
+3. Click **Create app**, select your repo, branch `main`, main file `app.py`.
+4. Open **Advanced settings -> Secrets** and add:
+   ```toml
+   GEMINI_API_KEY = "your-key"
+   ```
+5. Click **Deploy**.
+
+## Notes
+
+- Default model is `gemini-2.5-flash`; you can change it in the sidebar if Google releases a newer Flash model.
+- Scanned/image-only resumes can't be read (ATS systems can't read them either). Use a text-based PDF or DOCX.
+- The score is an AI estimate, not the output of a real employer ATS.
+- Resumes are sent to the Gemini API for analysis and are not stored by this app.
